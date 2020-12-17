@@ -1,26 +1,25 @@
+function idFinder(list, id){
+  let result = list.find(item => item.id === id);
+  return result;
+}
+
+
 function findAuthorById(authors, id) {
-  let result = authors.find(author => author.id === id)
-  return result
+  let result = idFinder(authors, id);
+  return result;
 }
 
 function findBookById(books, id) {
-  let result = books.find(book => book.id === id)
+  let result = idFinder(books, id);
   return result;
 }
 
 function partitionBooksByBorrowedStatus(books) {
   let final = [];
-  let loaned =[];
-  let returned = [];
-  books.forEach(book => {
-    if (book.borrows[0].returned === true) {
-      returned.push(book)
-    } else {
-      loaned.push(book);
-    }
-  })
-  final.push(loaned)
-  final.push(returned)
+  let loaned = books.filter(book => book.borrows[0].returned === false);
+  let returned = books.filter(book => book.borrows[0].returned === true);
+  final.push(loaned);
+  final.push(returned);
   return final
 }
 
